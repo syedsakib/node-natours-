@@ -1,0 +1,15 @@
+//Running Scripts:
+npm start
+npm run start:dev
+npm run start:prod
+
+
+npm init
+npm i express
+npm i morgan
+
+npm i dotenv
+npm install -g win-node-env
+
+
+
