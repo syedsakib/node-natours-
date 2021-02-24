@@ -1,3 +1,4 @@
+//=========================================================================
 //Running Scripts:
 npm start
 npm run start:dev
@@ -10,6 +11,58 @@ npm i morgan
 
 npm i dotenv
 npm install -g win-node-env
+npm i mongoose
 
 
+//=========================================================================
 
+//IMPORT & DELETE SCRIPTS:-
+node dev-data/data/import-dev-data.js --import
+node dev-data/data/import-dev-data.js --delete
+
+//=========================================================================
+
+READ A FILE:
+const fs = require('fs');
+
+ const tours = JSON.parse(
+   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+ );
+
+//=========================================================================
+
+SOME MIDDLEWAREs:
+ exports.checkID = (req, res, next, val) => {
+   const id = req.params.id * 1;
+   if (id > tours.length) {
+     return res.status(404).json({
+       status: 'fail',
+       message: 'Invalid ID',
+     });
+   }
+   next();
+ };
+
+ exports.checkBody = (req, res, next) => {
+   if (!req.body.name || !req.body.price) {
+     return res.status(400).json({
+       status: 'fail',
+       message: 'Missing name or price',
+     });
+   }
+   next();
+ };
+
+//=========================================================================
+
+SOME REQUESTS:
+http://localhost:3000/api/v1/tours
+http://localhost:3000/api/v1/tours?difficulty=easy&duration=3
+http://localhost:3000/api/v1/tours?difficulty=easy&duration[gte]=5&price[lte]=1500
+
+http://localhost:3000/api/v1/tours?sort=price,-ratingsAverage
+
+http://localhost:3000/api/v1/tours?fields=name,duration,difficulty,price
+
+
+//=========================================================================
