@@ -6,7 +6,8 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-//1 ) MIDDLEWARE:
+//1 ) MIDDLEWARE:-
+//----------------
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'development') {
@@ -22,9 +23,11 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgn('dev'));
 }
 
-//2 ) ROUTES:
+//2 ) ROUTES:-
+//------------
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-//3 ) RUN SERVER:
+//3 ) EXPORT APP:-
+//----------------
 module.exports = app;
