@@ -1,6 +1,8 @@
 const express = require('express');
 const morgn = require('morgan');
 
+const AppError = require('./utils/appError');
+const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
@@ -28,6 +30,14 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-//3 ) EXPORT APP:-
+//3 ) ERROR HANDELING:-
+//------------
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(globalErrorHandler);
+
+//4 ) EXPORT APP:-
 //----------------
 module.exports = app;
