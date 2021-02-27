@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const colors = require('colors');
 
+process.on('uncaughtException', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNCAUGHT EXCEPTION! SHUTTING DOWN....');
+  process.exit(1);
+});
+
 dotenv.config({ path: './config.env' });
 
 const app = require('./app');
@@ -35,4 +41,13 @@ app.listen(port, () => {
   console.log(colors.inverse(`App running on port ${port}...`));
 });
 
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNWANTED REJECTION! SHUTTING DOWN....');
+  server.clean(() => {
+    process.exit(1);
+  });
+});
+
+console.log(x);
 //test
