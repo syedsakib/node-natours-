@@ -23,7 +23,7 @@ router
   .post(userController.createUser);
 
 router.route('/:id').get(userController.getUser);
-// /.patch(userController.updateUser)
+//.patch(userController.updateUser)
 //.delete(authController.protect, userController.deleteUser);
 
 module.exports = router;
