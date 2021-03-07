@@ -37,17 +37,24 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+//reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 //DOCUMENT MIDDLEWARE:
 //  1)populate
-// reviewSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: 'user',
-//     select: 'name photo',
-//   });
-//   next();
-// });
+reviewSchema.pre(/^find/, function (next) {
+  // this.populate({
+  //   path: 'tour',
+  //   select: 'name',
+  // }).populate({
+  //   path: 'user',
+  //   select: 'name photo',
+  // });
+  this.populate({
+    path: 'user',
+    select: 'name photo',
+  });
+  next();
+});
 
 //
 // reviewSchema.statics.calcAverageRatings = async function (tourId) {

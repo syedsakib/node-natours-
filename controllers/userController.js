@@ -35,6 +35,18 @@ exports.createUser = (req, res) => {
   });
 };
 
+exports.getMe = catchAsync(async (req, res, next) => {
+  const id = req.user.id;
+  const user = await User.findById(id);
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: user,
+    },
+  });
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   //1) Cretae error if body contain password/passwordConfirm
   if (req.body.password || req.body.passwordConfirm) {
