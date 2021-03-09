@@ -1,5 +1,4 @@
 const Review = require('../models/reviewModel');
-const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
@@ -24,7 +23,7 @@ exports.getReview = catchAsync(async (req, res, next) => {
   const review = await Review.findById(req.params.id);
 
   if (!review) {
-    return next(new AppError('No review found with that ID', 404));
+    return next(new AppError(`No review found with that ID`, 404));
   }
 
   res.status(200).json({
@@ -55,7 +54,7 @@ exports.updateReview = catchAsync(async (req, res, next) => {
   });
 
   if (!review) {
-    return next(new AppError('No review found with that ID', 404));
+    return next(new AppError(`No review found with that ID`, 404));
   }
 
   res.status(200).json({

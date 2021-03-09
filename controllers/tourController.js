@@ -9,7 +9,7 @@ exports.aliasTopTours = (req, res, next) => {
   req.query.fields = 'name,price,ratingsAverage,difficulty';
   next();
 };
-
+ 
 exports.getAllTours = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Tour.find(), req.query)
     .filter()

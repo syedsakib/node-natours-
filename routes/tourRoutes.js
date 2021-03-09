@@ -22,6 +22,7 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.createTour
   );
+  
 router
   .route('/:id')
   .get(tourController.getTour)
